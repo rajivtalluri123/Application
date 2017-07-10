@@ -1,0 +1,48 @@
+<configuration>
+    <property name="LOG_FILE" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring-grading.log"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+
+    <appender name="LOGSTASH_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeContext>true</includeContext>
+            <includeMdc>true</includeMdc>
+        </encoder>
+    </appender>
+
+    <appender name="SENTRY" class="net.kencochrane.raven.logback.SentryAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <dsn>https://3ab9943d9dd14a6bbc36b890e1012340:0fbb6ea785794fc6a0c93b34403a4ecf@app.getsentry.com/50249</dsn>
+        <tags>stage:${spring.profiles.active}</tags>
+    </appender>
+
+    <springProfile name="!local">
+        <root level="INFO">
+            <appender-ref ref="SENTRY"/>
+            <appender-ref ref="LOGSTASH_CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="local">
+        <logger name="io.hmheng.scoring" level="trace" />
+        <root level="info">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="dev,int">
+        <logger name="io.hmheng.scoring" level="info" />
+    </springProfile>
+
+    <springProfile name="cert">
+        <logger name="io.hmheng.scoring" level="WARN" />
+    </springProfile>
+
+
+    <springProfile name="prod">
+        <logger name="io.hmheng.scoring" level="ERROR" />
+    </springProfile>
+</configuration>

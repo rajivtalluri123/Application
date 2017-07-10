@@ -1,0 +1,155 @@
+# define application variables
+CLUSTER_NAME= "brnpb"
+APP_NAME = "@project.artifactId@"
+APP_ROLE = "@aurora.appRole@"
+DOCKER_GROUP = "@project.groupId@"
+DOCKER_REGISTRY = "docker.br.hmheng.io"
+AWS_REGION = "us-east-1"
+APP_NAME_EXT = APP_NAME
+
+## aurora cli bind
+# aurora update start <cluster>/<role>/<stage>/<app-name> --bind tag=<docker-container-tag>
+# EXAMPLE: aurora update start brnpb-us-east-1/hmheng-report/prod/aggregator-data-services --bind tag=2a254670434a49ddd7e1651b74b08d770246c586
+
+try:
+    import getpass
+except ImportError:
+    print "Python Module `getpass` is required, please install it 'pip install -U getpass'."
+
+class Profile(Struct):
+    cluster = Default(String, CLUSTER_NAME + "-" + AWS_REGION)
+    stage = Default(String, "prod")
+    environment = Default(String, "prod")
+    contact = Default(String, "")
+    instances = Default(Integer, 1)
+    version = Default(String, "n/a")
+    tier = Default(String, "preferred")
+    role = Default(String, getpass.getuser())
+    docker_container = Default(String, DOCKER_REGISTRY + "/" + DOCKER_GROUP + "/" + APP_NAME)
+    docker_tag = Default(String, "{{tag}}")
+    autoscaling=Default(String,"standard-spark-nonprod")
+    acceptable_tasks = Default(Integer, 200)
+    force_task_kill_mills = Default(Integer, 120000)
+    spark_executor_core = Default(String, "0.5")
+    spark_extra_core = Default(Integer, 1)
+    spark_executor_memory_overhead = Default(Integer, 100)
+    spark_total_executor_cores = Default(Integer, 1)
+
+# -- profile mappings ---
+# prod|prod
+# prodrv|staging3
+# certrv|staging2
+# cert|staging1
+# int staging0
+# dev devel
+
+# -- profile instantiations (if any) ---
+PRODUCTION = Profile()
+PRODRV = Profile(
+    instances=1,
+    stage="prodrv",
+    environment="staging3",
+    cluster=CLUSTER_NAME + "-" + AWS_REGION,
+    autoscaling="standard-spark-nonprod",
+    acceptable_tasks = 25
+)
+
+CERTRV = Profile(
+    instances=3,
+    stage="certrv",
+    environment="staging2",
+    cluster=CLUSTER_NAME + "-" + AWS_REGION,
+    autoscaling="standard-spark-nonprod",
+    acceptable_tasks = 10
+)
+
+CERT2 = Profile(
+    instances=2,
+    stage="cert2",
+    environment="staging7",
+    cluster=CLUSTER_NAME + "-" + AWS_REGION,
+    autoscaling="standard-spark-nonprod",
+    acceptable_tasks = 10
+)
+
+CERT = Profile(
+    instances=1,
+    stage="cert",
+    environment="staging1",
+    cluster=CLUSTER_NAME + "-" + AWS_REGION,
+    autoscaling="standard-spark-nonprod",
+    acceptable_tasks = 150
+)
+
+INT = Profile(
+    instances=1,
+    stage="int",
+    environment="staging0",
+    cluster=CLUSTER_NAME + "-" + AWS_REGION,
+    tier="preemptible",
+    autoscaling="standard-spark-nonprod",
+    acceptable_tasks = 5
+)
+DEV = Profile(
+    instances=1,
+    stage="dev",
+    environment="devel",
+    cluster=CLUSTER_NAME + "-" + AWS_REGION,
+    tier="preemptible",
+    autoscaling="standard-spark-nonprod",
+    acceptable_tasks = 5
+)
+
+jobs = []
+task_res = Resources(cpu=@aurora.resources.cpu@, ram=@aurora.resources.mem@, disk=@aurora.resources.disk@)
+
+for profile in [DEV, INT, CERT, CERT2, CERTRV, PRODRV, PRODUCTION]:
+    server_task = Task(
+        name="run server",
+        processes=[
+            Process(
+                name="start server",
+                cmdline= """export JAVA_HOME=/usr/lib/jvm/java-8-oracle &&"""
+                        """ /bin/spark-submit """
+                        """ --conf spark.mesos.mesosExecutor.cores={{profile.spark_executor_core}} """
+                        """ --conf spark.executor.uri=/mnt/efs/service/roles/hmheng-report/spark/spark-2.2.0-SNAPSHOT-bin-hadoop2.7.tgz """
+                        """ --conf spark.mesos.executor.memoryOverhead={{profile.spark_executor_memory_overhead}} """
+                        """ --conf spark.mesos.extra.cores={{profile.spark_extra_core}} """
+                        """ --conf spark.mesos.constraints=autoscale-type:{{profile.autoscaling}} """
+                        """ --conf spark.app.env={{profile.stage}} """
+                        """ --conf spark.ui.port={{thermos.ports[http]}} """
+                        """ --conf spark.driver.extraJavaOptions=-Dspring.profiles.active={{profile.stage}} """
+                        """ --conf spark.executor.extraJavaOptions=-Dspring.profiles.active={{profile.stage}} """
+                        """ --conf spark.mesos.executor.docker.image={{profile.docker_container}}:{{profile.docker_tag}} """
+                        """ --conf spark.mesos.executor.docker.volumes=/mnt/efs/service/roles/hmheng-score/spark:/mnt/efs/service/roles/hmheng-score/spark:rw """
+                        """ --total-executor-cores {{profile.spark_total_executor_cores}} """
+                        """ --master mesos://zk://zkro01.brcore01.internal:2181,zkro02.brcore01.internal:2181,zkro03.brcore01.internal:2181/service/hmheng-infra/us-east-1/brnpb/mesos/master """
+                        """ --class io.hmheng.grading.GradingDataServicesApp /app.jar """,
+                logger=Logger(
+                    mode=LoggerMode('rotate'),
+                    rotate=RotatePolicy(log_size=100*MB, backups=10)
+                )
+            ).bind(profile=profile)
+        ],
+        resources=task_res
+    )
+
+    jobs.append(Service(
+        name=APP_NAME_EXT,
+        update_config=UpdateConfig(batch_size=1, watch_secs=60).bind(profile=profile),
+        task=server_task,
+        role="{{profile.role}}",
+        contact="{{profile.contact}}",
+        environment="{{profile.environment}}",
+        cluster="{{profile.cluster}}",
+        instances="{{profile.instances}}",
+        tier="{{profile.tier}}",
+        constraints={"host": "limit:1", "rack": "limit:3","autoscale-type": "{{profile.autoscaling}}"},
+        announce=Announcer(),
+        container=Container(
+            docker=Docker(
+                image="{{profile.docker_container}}:{{profile.docker_tag}}",
+                parameters=[Parameter(name='volume', value='/mnt/efs/service/roles/hmheng-score/spark:/mnt/efs/service/roles/hmheng-score/spark:rw')]
+            ).bind(profile=profile)
+        )
+    ).bind(profile=profile))

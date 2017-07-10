@@ -1,0 +1,14 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+box = "postgresql-9.3-22052015"
+
+Vagrant.configure(2) do |config|
+  config.vm.box = box
+  config.vm.box_url = "http://hmheng-public.s3-website-us-east-1.amazonaws.com/vagrant/#{box}.box"
+  config.vm.box_download_checksum = "0acefcf8d07ece7f1f5b5ce85fa2b1437ab1a45e902d92a21e434f81a4e8353a"
+  config.vm.box_download_checksum_type = "sha256"
+  config.vm.network "private_network", ip: "192.168.33.20"
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+  end
+end

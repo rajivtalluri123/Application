@@ -1,0 +1,109 @@
+---
+spring:
+  application:
+    name: gradingdataservice
+  cloud:
+    config:
+      uri: http://report-config-server.staging1.hmheng-report.brnp.internal
+      username: user
+      password: 5432132121
+  jackson:
+    deserialization:
+      accept_float_as_int: true
+  profiles:
+      active: local
+
+aws:
+  kinesis:
+    consume:
+      assesmentscores:
+        mapperBeanClass: io.hmheng.grading.streams.grading.learnosity.LearnosityStudentSessionDataMapper
+        processorBeanClass: io.hmheng.grading.streams.grading.learnosity.LearnosityStudentSessionDataProcessor
+
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      uri: https://report-config-server.br.hmheng.io
+      username: user
+      password: 1234512312
+      label: prod
+---
+spring:
+  profiles: int
+  cloud:
+    config:
+      label: int
+---
+spring:
+  profiles: cert
+  cloud:
+    config:
+      label: cert
+---
+spring:
+  profiles: certrv
+  cloud:
+    config:
+      label: certrv
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      label: develop
+---
+spring:
+  profiles: local
+  cloud:
+      config:
+        label: local
+spark:
+  driver:
+    memory: 512M
+  executor:
+    memory: 1024M
+    uri: /mnt/efs/service/roles/hmheng-report/spark/spark-2.2.0-SNAPSHOT-bin-hadoop2.7.tgz
+  app:
+    env: local
+    enableYarnMaster: true
+    master: local[*]
+    label:  io.hmheng.local.spark.gradig.grading-data-services
+    batchMillis: 2000
+    home: /
+    memory:
+      fraction: .5
+      storageFraction: .5
+aws:
+  kinesis:
+    consume:
+      assesmentscores:
+        appName: dev.hmhone-score-learnosity-application
+        stream: io_hmheng_hmhone_dev_assessment_score_stream
+        region: us-east-1
+        kinesisEndpoint: https://kinesis.us-east-1.amazonaws.com
+        useSts: true
+        roleArn: arn:aws:iam::711638685743:role/io.hmheng.hmhone.dev.score.kinesis.crossaccount
+        roleSessionName: consumeAssesmentScores
+        mapperBeanClass: io.hmheng.grading.streams.grading.learnosity.LearnosityStudentSessionDataMapper
+        processorBeanClass: io.hmheng.grading.streams.grading.learnosity.LearnosityStudentSessionDataProcessor
+        sparkProcessingParallelism: 3
+    produce:
+      assesmentscores:
+        appName: dev.ed-score-conversion-application
+        stream: io_hmheng_ed_dev_assessment_score_conversion_stream
+        region: us-east-1
+        kinesisEndpoint: https://kinesis.us-east-1.amazonaws.com
+        useSts: true
+        roleArn: arn:aws:iam::711638685743:role/io.hmheng.hmhone.dev.score.kinesis.crossaccount
+        roleSessionName: produceAssesmentScores
+        sparkProcessingParallelism: 3
+  app:
+    disableCertChecking: YES
+scoring:
+  host:
+    baseUrl: http://localhost:8080
+grading:
+  host:
+    baseUrl: http://localhost:8085

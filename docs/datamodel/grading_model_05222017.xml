@@ -1,0 +1,2020 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DatabaseModel VersionId="2.0">
+    <ModelGid>none</ModelGid>
+    <ModelVersionGid>none</ModelVersionGid>
+    <Counters>
+        <Counter>
+            <Name>table</Name>
+            <Value>10</Value>
+            <Prefix>t</Prefix>
+        </Counter>
+        <Counter>
+            <Name>column</Name>
+            <Value>84</Value>
+            <Prefix>c</Prefix>
+        </Counter>
+        <Counter>
+            <Name>index</Name>
+            <Value>2</Value>
+            <Prefix>i</Prefix>
+        </Counter>
+        <Counter>
+            <Name>reference</Name>
+            <Value>12</Value>
+            <Prefix>r</Prefix>
+        </Counter>
+        <Counter>
+            <Name>table_check</Name>
+            <Value>0</Value>
+            <Prefix>tc</Prefix>
+        </Counter>
+        <Counter>
+            <Name>alternate_key</Name>
+            <Value>2</Value>
+            <Prefix>a</Prefix>
+        </Counter>
+        <Counter>
+            <Name>sequence</Name>
+            <Value>3</Value>
+            <Prefix>s</Prefix>
+        </Counter>
+        <Counter>
+            <Name>note</Name>
+            <Value>0</Value>
+            <Prefix>n</Prefix>
+        </Counter>
+        <Counter>
+            <Name>view</Name>
+            <Value>3</Value>
+            <Prefix>v</Prefix>
+        </Counter>
+        <Counter>
+            <Name>area</Name>
+            <Value>0</Value>
+            <Prefix>ar</Prefix>
+        </Counter>
+        <Counter>
+            <Name>text</Name>
+            <Value>0</Value>
+            <Prefix>tx</Prefix>
+        </Counter>
+        <Counter>
+            <Name>view_column</Name>
+            <Value>28</Value>
+            <Prefix>vc</Prefix>
+        </Counter>
+        <Counter>
+            <Name>tableDisplay</Name>
+            <Value>10</Value>
+            <Prefix>td</Prefix>
+        </Counter>
+        <Counter>
+            <Name>viewDisplay</Name>
+            <Value>3</Value>
+            <Prefix>vd</Prefix>
+        </Counter>
+        <Counter>
+            <Name>referenceDisplay</Name>
+            <Value>12</Value>
+            <Prefix>rd</Prefix>
+        </Counter>
+    </Counters>
+    <AdditionalSQLBeforeCreate></AdditionalSQLBeforeCreate>
+    <AdditionalSQLAfterCreate></AdditionalSQLAfterCreate>
+    <AdditionalSQLBeforeDrop></AdditionalSQLBeforeDrop>
+    <AdditionalSQLAfterDrop></AdditionalSQLAfterDrop>
+    <Tables>
+        <Table Id="t1">
+            <Name>activity</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c1">
+                    <Name>activity_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c2">
+                    <Name>teacher_assignment_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c3">
+                    <Name>staff_personal_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c4">
+                    <Name>num_questions</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c5">
+                    <Name>max_score</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c6">
+                    <Name>max_time</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c7">
+                    <Name>created_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c8">
+                    <Name>updated_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes>
+                <Index Id="i1">
+                    <Name>activity_staff_refid_idx</Name>
+                    <Columns>
+                        <Column>c1</Column>
+                        <Ascending>true</Ascending>
+                    </Columns>
+                    <Columns>
+                        <Column>c3</Column>
+                        <Ascending>true</Ascending>
+                    </Columns>
+                    <Properties/>
+                </Index>
+            </Indexes>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>activity_pkey</Value>
+                </Property>
+            </Properties>
+        </Table>
+        <Table Id="t2">
+            <Name>activity_item_score</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c9">
+                    <Name>refid</Name>
+                    <Type>bigserial</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue>nextval('activity_item_score_refid_seq'::regclass)</DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c10">
+                    <Name>activity_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c11">
+                    <Name>item_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c12">
+                    <Name>score_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c13">
+                    <Name>max_score</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c14">
+                    <Name>weight</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c15">
+                    <Name>created_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c16">
+                    <Name>updated_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c17">
+                    <Name>question_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>activity_item_score_pkey</Value>
+                </Property>
+            </Properties>
+        </Table>
+        <Table Id="t3">
+            <Name>item</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c18">
+                    <Name>item_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c19">
+                    <Name>organisation_id</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c20">
+                    <Name>item_pool_id</Name>
+                    <Type>varchar(60)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c21">
+                    <Name>type</Name>
+                    <Type>varchar(36)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c22">
+                    <Name>created_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c23">
+                    <Name>updated_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>item_pkey</Value>
+                </Property>
+            </Properties>
+        </Table>
+        <Table Id="t4">
+            <Name>question</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c24">
+                    <Name>question_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c25">
+                    <Name>rubric_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c26">
+                    <Name>question_type</Name>
+                    <Type>varchar(20)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c27">
+                    <Name>created_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c28">
+                    <Name>updated_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>question_pkey</Value>
+                </Property>
+            </Properties>
+        </Table>
+        <Table Id="t5">
+            <Name>schema_version</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c29">
+                    <Name>installed_rank</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c30">
+                    <Name>version</Name>
+                    <Type>varchar(50)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c31">
+                    <Name>description</Name>
+                    <Type>varchar(200)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c32">
+                    <Name>type</Name>
+                    <Type>varchar(20)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c33">
+                    <Name>script</Name>
+                    <Type>varchar(1000)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c34">
+                    <Name>checksum</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c35">
+                    <Name>installed_by</Name>
+                    <Type>varchar(100)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c36">
+                    <Name>installed_on</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue>now()</DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c37">
+                    <Name>execution_time</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c38">
+                    <Name>success</Name>
+                    <Type>bool</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes>
+                <Index Id="i2">
+                    <Name>schema_version_s_idx</Name>
+                    <Columns>
+                        <Column>c38</Column>
+                        <Ascending>true</Ascending>
+                    </Columns>
+                    <Properties/>
+                </Index>
+            </Indexes>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>schema_version_pk</Value>
+                </Property>
+            </Properties>
+        </Table>
+        <Table Id="t6">
+            <Name>score</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c39">
+                    <Name>score_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c40">
+                    <Name>automarkable</Name>
+                    <Type>bool</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c41">
+                    <Name>correct_response</Name>
+                    <Type>varchar(40)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c42">
+                    <Name>created_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c43">
+                    <Name>updated_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c44">
+                    <Name>title</Name>
+                    <Type>varchar(128)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c45">
+                    <Name>description</Name>
+                    <Type>text</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>score_pkey</Value>
+                </Property>
+            </Properties>
+        </Table>
+        <Table Id="t7">
+            <Name>student_item</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c46">
+                    <Name>refid</Name>
+                    <Type>bigserial</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue>nextval('student_item_refid_seq'::regclass)</DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c47">
+                    <Name>session_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c48">
+                    <Name>item_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c49">
+                    <Name>time</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c50">
+                    <Name>max_score</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c51">
+                    <Name>user_flagged</Name>
+                    <Type>bool</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c52">
+                    <Name>created_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c53">
+                    <Name>updated_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys>
+                <AlternateKey Id="a1">
+                    <Name>student_item_uq</Name>
+                    <Columns>
+                        <Column>c47</Column>
+                    </Columns>
+                    <Columns>
+                        <Column>c48</Column>
+                    </Columns>
+                    <Properties/>
+                </AlternateKey>
+            </AlternateKeys>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>student_item_pkey</Value>
+                </Property>
+            </Properties>
+        </Table>
+        <Table Id="t8">
+            <Name>student_question</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c54">
+                    <Name>refid</Name>
+                    <Type>bigserial</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue>nextval('student_question_refid_seq'::regclass)</DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c55">
+                    <Name>student_item_refid</Name>
+                    <Type>int8</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c56">
+                    <Name>question_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c57">
+                    <Name>actual_response</Name>
+                    <Type>text</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c58">
+                    <Name>created_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c59">
+                    <Name>updated_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys>
+                <AlternateKey Id="a2">
+                    <Name>student_item_question_uq</Name>
+                    <Columns>
+                        <Column>c55</Column>
+                    </Columns>
+                    <Columns>
+                        <Column>c56</Column>
+                    </Columns>
+                    <Properties/>
+                </AlternateKey>
+            </AlternateKeys>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>student_question_pkey</Value>
+                </Property>
+            </Properties>
+        </Table>
+        <Table Id="t9">
+            <Name>student_score</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c60">
+                    <Name>response_id</Name>
+                    <Type>varchar(80)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c61">
+                    <Name>session_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c62">
+                    <Name>student_item_refid</Name>
+                    <Type>int8</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c63">
+                    <Name>student_question_refid</Name>
+                    <Type>int8</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c64">
+                    <Name>score_reference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c65">
+                    <Name>staff_personal_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c66">
+                    <Name>attemted</Name>
+                    <Type>bool</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c67">
+                    <Name>value</Name>
+                    <Type>text</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c68">
+                    <Name>weight</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c69">
+                    <Name>max_score</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c70">
+                    <Name>score</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c71">
+                    <Name>created_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c72">
+                    <Name>updated_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>student_score_pkey</Value>
+                </Property>
+            </Properties>
+        </Table>
+        <Table Id="t10">
+            <Name>student_session</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c73">
+                    <Name>session_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>true</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c74">
+                    <Name>activity_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c75">
+                    <Name>student_personal_refid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c76">
+                    <Name>num_attempted</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c77">
+                    <Name>score</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c78">
+                    <Name>session_duration</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c79">
+                    <Name>status</Name>
+                    <Type>varchar(8)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c80">
+                    <Name>dt_started</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c81">
+                    <Name>dt_completed</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c82">
+                    <Name>user_agent</Name>
+                    <Type>varchar(250)</Type>
+                    <Description></Description>
+                    <Nullable>true</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c83">
+                    <Name>created_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c84">
+                    <Name>updated_at</Name>
+                    <Type>timestamp</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties>
+                <Property>
+                    <Name>Primary key name</Name>
+                    <Value>student_session_pkey</Value>
+                </Property>
+            </Properties>
+        </Table>
+    </Tables>
+    <Views>
+        <View Id="v1">
+            <Name>activitystudentitem_view</Name>
+            <Description></Description>
+            <SQLQuery> SELECT DISTINCT st.refid,
+    st.session_refid AS sessionid,
+    st."time",
+    item.item_reference AS itemreference,
+    st.max_score AS maxscore,
+    st.user_flagged AS userflagged,
+    item.organisation_id AS organisationid,
+    item.item_pool_id AS itempoolid,
+    item.type
+   FROM (student_item st
+     JOIN item item ON (((st.item_reference)::text = (item.item_reference)::text)));</SQLQuery>
+            <ViewColumns>
+                <ViewColumn Id="vc1">
+                    <Name>refid</Name>
+                    <Type>int8</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc2">
+                    <Name>sessionid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc3">
+                    <Name>time</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc4">
+                    <Name>itemreference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc5">
+                    <Name>maxscore</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc6">
+                    <Name>userflagged</Name>
+                    <Type>bool</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc7">
+                    <Name>organisationid</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc8">
+                    <Name>itempoolid</Name>
+                    <Type>varchar(60)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc9">
+                    <Name>type</Name>
+                    <Type>varchar(36)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+            </ViewColumns>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </View>
+        <View Id="v2">
+            <Name>activitystudentquestion_view</Name>
+            <Description></Description>
+            <SQLQuery> SELECT DISTINCT sq.refid,
+    sq.question_reference AS questionreference,
+    sq.student_item_refid AS studentitemrefid,
+    sq.actual_response AS actualresponse,
+    question.rubric_reference AS rubricreference,
+    question.question_type AS questiontype
+   FROM (student_question sq
+     JOIN question question ON (((sq.question_reference)::text = (question.question_reference)::text)));</SQLQuery>
+            <ViewColumns>
+                <ViewColumn Id="vc10">
+                    <Name>refid</Name>
+                    <Type>int8</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc11">
+                    <Name>questionreference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc12">
+                    <Name>studentitemrefid</Name>
+                    <Type>int8</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc13">
+                    <Name>actualresponse</Name>
+                    <Type>text</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc14">
+                    <Name>rubricreference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc15">
+                    <Name>questiontype</Name>
+                    <Type>varchar(20)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+            </ViewColumns>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </View>
+        <View Id="v3">
+            <Name>activitystudentscore_view</Name>
+            <Description></Description>
+            <SQLQuery> SELECT DISTINCT ss.response_id AS responseid,
+    ss.score_reference AS scorereference,
+    ss.staff_personal_refid AS staffpersonalrefid,
+    ss.student_question_refid AS studentquestionrefid,
+    ss.attemted AS attempted,
+    ss.value,
+    ss.weight,
+    ss.max_score AS maxscore,
+    ss.score,
+    score.title,
+    score.description,
+    score.automarkable,
+    score.correct_response AS correctresponse
+   FROM (student_score ss
+     JOIN score score ON (((ss.score_reference)::text = (score.score_reference)::text)));</SQLQuery>
+            <ViewColumns>
+                <ViewColumn Id="vc16">
+                    <Name>responseid</Name>
+                    <Type>varchar(80)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc17">
+                    <Name>scorereference</Name>
+                    <Type>varchar(42)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc18">
+                    <Name>staffpersonalrefid</Name>
+                    <Type>uuid(2147483647)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc19">
+                    <Name>studentquestionrefid</Name>
+                    <Type>int8</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc20">
+                    <Name>attempted</Name>
+                    <Type>bool</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc21">
+                    <Name>value</Name>
+                    <Type>text</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc22">
+                    <Name>weight</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc23">
+                    <Name>maxscore</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc24">
+                    <Name>score</Name>
+                    <Type>int4</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc25">
+                    <Name>title</Name>
+                    <Type>varchar(128)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc26">
+                    <Name>description</Name>
+                    <Type>text</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc27">
+                    <Name>automarkable</Name>
+                    <Type>bool</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+                <ViewColumn Id="vc28">
+                    <Name>correctresponse</Name>
+                    <Type>varchar(40)</Type>
+                    <Description></Description>
+                    <Properties/>
+                </ViewColumn>
+            </ViewColumns>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </View>
+    </Views>
+    <References>
+        <Reference Id="r1">
+            <Name>activity_item_score_activity_refid_fkey</Name>
+            <Description></Description>
+            <PKTable>t1</PKTable>
+            <FKTable>t2</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c1</PKColumn>
+                    <FKColumn>c10</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r2">
+            <Name>student_session_activity_refid_fkey</Name>
+            <Description></Description>
+            <PKTable>t1</PKTable>
+            <FKTable>t10</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c1</PKColumn>
+                    <FKColumn>c74</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r3">
+            <Name>activity_item_score_item_reference_fkey</Name>
+            <Description></Description>
+            <PKTable>t3</PKTable>
+            <FKTable>t2</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c18</PKColumn>
+                    <FKColumn>c11</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r4">
+            <Name>student_item_item_reference_fkey</Name>
+            <Description></Description>
+            <PKTable>t3</PKTable>
+            <FKTable>t7</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c18</PKColumn>
+                    <FKColumn>c48</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r5">
+            <Name>student_question_question_reference_fkey</Name>
+            <Description></Description>
+            <PKTable>t4</PKTable>
+            <FKTable>t8</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c24</PKColumn>
+                    <FKColumn>c56</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r6">
+            <Name>activity_item_score_score_reference_fkey</Name>
+            <Description></Description>
+            <PKTable>t6</PKTable>
+            <FKTable>t2</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c39</PKColumn>
+                    <FKColumn>c12</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r7">
+            <Name>student_score_score_reference_fkey</Name>
+            <Description></Description>
+            <PKTable>t6</PKTable>
+            <FKTable>t9</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c39</PKColumn>
+                    <FKColumn>c64</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>false</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r8">
+            <Name>student_question_student_item_refid_fkey</Name>
+            <Description></Description>
+            <PKTable>t7</PKTable>
+            <FKTable>t8</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c46</PKColumn>
+                    <FKColumn>c55</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r9">
+            <Name>student_score_student_item_refid_fkey</Name>
+            <Description></Description>
+            <PKTable>t7</PKTable>
+            <FKTable>t9</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c46</PKColumn>
+                    <FKColumn>c62</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r10">
+            <Name>student_score_student_question_refid_fkey</Name>
+            <Description></Description>
+            <PKTable>t8</PKTable>
+            <FKTable>t9</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c54</PKColumn>
+                    <FKColumn>c63</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r11">
+            <Name>student_item_session_refid_fkey</Name>
+            <Description></Description>
+            <PKTable>t10</PKTable>
+            <FKTable>t7</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c73</PKColumn>
+                    <FKColumn>c47</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r12">
+            <Name>student_score_session_refid_fkey</Name>
+            <Description></Description>
+            <PKTable>t10</PKTable>
+            <FKTable>t9</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c73</PKColumn>
+                    <FKColumn>c61</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+    </References>
+    <Sequences>
+        <Sequence Id="s1">
+            <Name>activity_item_score_refid_seq</Name>
+            <Description></Description>
+            <StartWith>1</StartWith>
+            <IncrementBy>1</IncrementBy>
+            <MinValue>1</MinValue>
+            <HasMinValue>true</HasMinValue>
+            <MaxValue>9223372036854775807</MaxValue>
+            <HasMaxValue>true</HasMaxValue>
+            <Cycle>false</Cycle>
+            <Cache></Cache>
+            <HasCache>false</HasCache>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Sequence>
+        <Sequence Id="s2">
+            <Name>student_item_refid_seq</Name>
+            <Description></Description>
+            <StartWith>1</StartWith>
+            <IncrementBy>1</IncrementBy>
+            <MinValue>1</MinValue>
+            <HasMinValue>true</HasMinValue>
+            <MaxValue>9223372036854775807</MaxValue>
+            <HasMaxValue>true</HasMaxValue>
+            <Cycle>false</Cycle>
+            <Cache></Cache>
+            <HasCache>false</HasCache>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Sequence>
+        <Sequence Id="s3">
+            <Name>student_question_refid_seq</Name>
+            <Description></Description>
+            <StartWith>1</StartWith>
+            <IncrementBy>1</IncrementBy>
+            <MinValue>1</MinValue>
+            <HasMinValue>true</HasMinValue>
+            <MaxValue>9223372036854775807</MaxValue>
+            <HasMaxValue>true</HasMaxValue>
+            <Cycle>false</Cycle>
+            <Cache></Cache>
+            <HasCache>false</HasCache>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Sequence>
+    </Sequences>
+    <Notes/>
+    <Areas/>
+    <Texts/>
+    <TableDisplays>
+        <TableDisplay Id="td1">
+            <X>4567.5</X>
+            <Y>5191.5</Y>
+            <Width>328.0</Width>
+            <Height>152.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t1</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td2">
+            <X>4509.5</X>
+            <Y>4816.5</Y>
+            <Width>248.0</Width>
+            <Height>168.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t2</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td3">
+            <X>4288.5</X>
+            <Y>5203.5</Y>
+            <Width>232.0</Width>
+            <Height>120.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t3</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td4">
+            <X>4231.5</X>
+            <Y>4811.5</Y>
+            <Width>264.0</Width>
+            <Height>104.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t4</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td5">
+            <X>5168.5</X>
+            <Y>4640.5</Y>
+            <Width>200.0</Width>
+            <Height>184.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t5</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td6">
+            <X>4946.5</X>
+            <Y>5579.5</Y>
+            <Width>240.0</Width>
+            <Height>136.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t6</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td7">
+            <X>5516.5</X>
+            <Y>5060.5</Y>
+            <Width>240.0</Width>
+            <Height>152.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t7</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td8">
+            <X>4553.5</X>
+            <Y>5503.5</Y>
+            <Width>240.0</Width>
+            <Height>120.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t8</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td9">
+            <X>5218.5</X>
+            <Y>4983.5</Y>
+            <Width>296.0</Width>
+            <Height>232.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t9</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td10">
+            <X>4941.5</X>
+            <Y>5258.5</Y>
+            <Width>312.0</Width>
+            <Height>216.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t10</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+    </TableDisplays>
+    <ViewDisplays>
+        <ViewDisplay Id="vd1">
+            <X>4798.5</X>
+            <Y>4537.5</Y>
+            <Width>208.0</Width>
+            <Height>192.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#C9DAF8</FillColor>
+            <FixedSize>false</FixedSize>
+            <View>v1</View>
+        </ViewDisplay>
+        <ViewDisplay Id="vd2">
+            <X>5318.5</X>
+            <Y>5412.5</Y>
+            <Width>232.0</Width>
+            <Height>144.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#C9DAF8</FillColor>
+            <FixedSize>false</FixedSize>
+            <View>v2</View>
+        </ViewDisplay>
+        <ViewDisplay Id="vd3">
+            <X>4859.5</X>
+            <Y>4871.5</Y>
+            <Width>280.0</Width>
+            <Height>256.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#C9DAF8</FillColor>
+            <FixedSize>false</FixedSize>
+            <View>v3</View>
+        </ViewDisplay>
+    </ViewDisplays>
+    <ReferenceDisplays>
+        <ReferenceDisplay Id="rd1">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>4715.5</X>
+                <Y>5286.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4715.5</X>
+                <Y>4912.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4573.5</X>
+                <Y>4912.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td1</PkTableDisplay>
+            <FkTableDisplay>td2</FkTableDisplay>
+            <Reference>r1</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd2">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>4717.5</X>
+                <Y>5282.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4717.5</X>
+                <Y>5343.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5129.5</X>
+                <Y>5343.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td1</PkTableDisplay>
+            <FkTableDisplay>td10</FkTableDisplay>
+            <Reference>r2</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd3">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>4413.5</X>
+                <Y>5266.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4413.5</X>
+                <Y>4861.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4598.5</X>
+                <Y>4861.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td3</PkTableDisplay>
+            <FkTableDisplay>td2</FkTableDisplay>
+            <Reference>r3</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd4">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>4423.5</X>
+                <Y>5250.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4423.5</X>
+                <Y>5141.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5573.5</X>
+                <Y>5141.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td3</PkTableDisplay>
+            <FkTableDisplay>td7</FkTableDisplay>
+            <Reference>r4</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd5">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>4379.5</X>
+                <Y>4873.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4379.5</X>
+                <Y>5568.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4690.5</X>
+                <Y>5568.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td4</PkTableDisplay>
+            <FkTableDisplay>td8</FkTableDisplay>
+            <Reference>r5</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd6">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>5029.5</X>
+                <Y>5647.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5029.5</X>
+                <Y>4880.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4566.5</X>
+                <Y>4880.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td6</PkTableDisplay>
+            <FkTableDisplay>td2</FkTableDisplay>
+            <Reference>r6</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd7">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>4996.5</X>
+                <Y>5673.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4996.5</X>
+                <Y>5106.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5301.5</X>
+                <Y>5106.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td6</PkTableDisplay>
+            <FkTableDisplay>td9</FkTableDisplay>
+            <Reference>r7</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd8">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>5635.5</X>
+                <Y>5160.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5635.5</X>
+                <Y>5533.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4599.5</X>
+                <Y>5533.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td7</PkTableDisplay>
+            <FkTableDisplay>td8</FkTableDisplay>
+            <Reference>r8</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd9">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>5713.5</X>
+                <Y>5134.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5713.5</X>
+                <Y>5043.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5299.5</X>
+                <Y>5043.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td7</PkTableDisplay>
+            <FkTableDisplay>td9</FkTableDisplay>
+            <Reference>r9</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd10">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>4654.5</X>
+                <Y>5589.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>4654.5</X>
+                <Y>5075.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5268.5</X>
+                <Y>5075.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td8</PkTableDisplay>
+            <FkTableDisplay>td9</FkTableDisplay>
+            <Reference>r10</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd11">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>5133.5</X>
+                <Y>5398.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5133.5</X>
+                <Y>5145.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5561.5</X>
+                <Y>5145.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td10</PkTableDisplay>
+            <FkTableDisplay>td7</FkTableDisplay>
+            <Reference>r11</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd12">
+            <Color>#000000</Color>
+            <ControlPointsType>Cross_3CP</ControlPointsType>
+            <ControlPoint>
+                <X>5061.5</X>
+                <Y>5382.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5061.5</X>
+                <Y>5096.5</Y>
+            </ControlPoint>
+            <ControlPoint>
+                <X>5378.5</X>
+                <Y>5096.5</Y>
+            </ControlPoint>
+            <PkTableDisplay>td10</PkTableDisplay>
+            <FkTableDisplay>td9</FkTableDisplay>
+            <Reference>r12</Reference>
+        </ReferenceDisplay>
+    </ReferenceDisplays>
+</DatabaseModel>

@@ -1,0 +1,127 @@
+---
+spring:
+  application:
+    name: grading
+  cloud:
+    config:
+      #label: ${git-branch:develop}
+      #Security implementation has to be changed to consider multiple profile rather than just 1
+      uri: http://report-config-server.staging1.hmheng-report.brnp.internal
+      username: user
+      password: 5432132121
+
+  profiles:
+      active: local
+
+  data:
+        rest:
+          default-page-size: 100
+
+#logging:
+#  level.org.hibernate.SQL: DEBUG
+# For local if the profile should not be picked up from develop,
+# can add config in bootstrap.yml at particular application level
+
+
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      uri: https://report-config-server.br.hmheng.io
+      username: user
+      password: 1234512312
+      label: prod
+---
+spring:
+  profiles: int
+  cloud:
+    config:
+      label: int
+---
+spring:
+  profiles: cert
+  cloud:
+    config:
+      label: cert
+---
+spring:
+  profiles: certrv
+  cloud:
+    config:
+      label: certrv
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      label: develop
+---
+spring:
+  profiles: jenkins
+  cloud:
+    config:
+      label: develop
+---
+spring:
+  profiles: local
+  zipkin:
+    baseUrl: https://tracing.cert.br.hmheng.io
+  sleuth:
+    sampler:
+      percentage: 1.0
+  cloud:
+    config:
+      label: develop
+  datasource:
+     driverClassName: org.postgresql.Driver
+     url: jdbc:postgresql://192.168.33.20:5432/grading
+     initial-size: 2
+     maximum-pool-size: 10
+     username: vagrant
+     password: vagrant
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+### uncomment for local debuging ###
+    hibernate:
+      show_sql: true
+      format_sql: true
+        
+flyway:
+   enabled: true
+   schema: public
+   locations: classpath:db/migrations
+
+aws:
+  kinesis:
+    produce:
+      assesmentscores:
+        appName: dev.hmhone-score-learnosity-application
+        stream: io_hmheng_hmhone_dev_assessment_score_stream
+        region: us-east-1
+        kinesisEndpoint: https://kinesis.us-east-1.amazonaws.com
+        useSts: true
+        roleArn: arn:aws:iam::711638685743:role/io.hmheng.hmhone.dev.score.kinesis.crossaccount
+        roleSessionName: produceAssesmentScores
+        sparkProcessingParallelism: 3
+      assesmentstatus:
+        appName: io.hmheng.dev.hmhone.status.learnocity.application
+        stream: io.hmheng.dev.kinesis.hmhone.assessment.status
+        region: us-east-1
+        kinesisEndpoint: https://kinesis.us-east-1.amazonaws.com
+        useSts: true
+        roleArn: arn:aws:iam::187631879586:role/io.hmheng.dev.hmhone.score.local
+        roleSessionName: produceAssesmentStatus
+        sparkProcessingParallelism: 3
+  app:
+    disableCertChecking: YES
+sleuth:
+  sampler:
+    percentage: 1.0
+
+# instead of explicitly entering log messages in each handler, this would suffice
+logging.level.org.springframework.web.servlet.DispatcherServlet: DEBUG

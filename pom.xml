@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.hmheng</groupId>
+        <artifactId>spring-boot-master</artifactId>
+        <version>0.1.7</version>
+    </parent>
+
+    <groupId>io.hmheng.scoring</groupId>
+    <artifactId>grading-services</artifactId>
+    <description>HMHCO Grading Services Modules POM</description>
+    <packaging>pom</packaging>
+    <version>0.1.10-SNAPSHOT</version>
+    <modules>
+        <module>grading-common</module>
+        <module>grading-api</module>
+        <module>grading-data-services</module>
+    </modules>
+
+    <properties>
+        <version>-</version>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+
+        <stub-library.version>1.0.0</stub-library.version>
+        <json.path.version>2.0.0</json.path.version>
+        <apache.httpcomponents.version>4.4</apache.httpcomponents.version>
+        <kencochrane.raven.version>6.0.0</kencochrane.raven.version>
+        <assertj.version>3.2.0</assertj.version>
+        <jackson.datatype.version>2.8.4</jackson.datatype.version>
+        <commons-lang>3.0</commons-lang>
+
+        <!-- hibernate 5 can handle java 8 LocalDateTime -->
+        <hibernate-entitymanager.version>5.0.4.Final</hibernate-entitymanager.version>
+        <hibernate.version>5.0.4.Final</hibernate.version>
+        <hibernate-validator.version>5.2.2.Final</hibernate-validator.version>
+
+        <!-- Third Party Libraries -->
+        <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
+        <flyway.version>4.0.3</flyway.version>
+        <logstash-logback-encoder.version>4.7</logstash-logback-encoder.version>
+        <lombok.version>1.16.14</lombok.version>
+        <google.guava.version>18.0</google.guava.version>
+        <aws-java-sdk.version>1.11.97</aws-java-sdk.version>
+        <aws-kpl.version>0.12.5</aws-kpl.version>
+        <logstash-log4j-jsonevent>1.7</logstash-log4j-jsonevent>
+
+        <!-- HMH common libraries -->
+        <common.components.version>2.0.0.80</common.components.version>
+        <rest.api-instrumentation.version>${common.components.version}</rest.api-instrumentation.version>
+        <tracing.common.version>1.4</tracing.common.version>
+        <security.common.version>1.0.05</security.common.version>
+        <extras.security.version>${common.components.version}</extras.security.version>
+
+        <!-- Aurora Deployment Properties -->
+        <java.xmx.mb>512</java.xmx.mb>
+        <java.xms.mb>512</java.xms.mb>
+        <aurora.appRole>hmheng-score</aurora.appRole>
+        <aurora.resources.cpu>0.5</aurora.resources.cpu>
+        <aurora.resources.mem>0.75 * GB</aurora.resources.mem>
+        <aurora.resources.disk>0.5 * GB</aurora.resources.disk>
+
+        <!-- Spark -->
+        <spark.version>2.2.0-SNAPSHOT</spark.version>
+
+        <!-- Documenatation Thirdparty libraries -->
+        <swagger.version>2.6.1</swagger.version>
+        <swagger.ui.version>2.6.1</swagger.ui.version>
+        <gson.version>2.7</gson.version>
+
+    </properties>
+
+
+    <repositories>
+        <repository>
+            <id>dublin-sonatype-releases</id>
+            <name>dublin-sonatype-releases</name>
+            <url>https://repo.br.hmheng.io/artifactory/list/dublin-sonatype-releases/</url>
+        </repository>
+        <repository>
+            <id>hmheng-io-libs-release-local</id>
+            <name>repo.hmheng.io</name>
+            <url>https://repo.br.hmheng.io/artifactory/libs-release-local</url>
+        </repository>
+        <repository>
+            <id>hmheng-io-libs-snapshot-local</id>
+            <name>repo.hmheng.io.snapshot</name>
+            <url>https://repo.br.hmheng.io/artifactory/libs-snapshot-local</url>
+        </repository>
+        <repository>
+            <id>remote-repos</id>
+            <name>remote-repos</name>
+            <url>https://repo.br.hmheng.io/artifactory/remote-repos/</url>
+        </repository>
+    </repositories>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.hmhco</groupId>
+                <artifactId>stub-library</artifactId>
+                <version>${stub-library.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.kencochrane.raven</groupId>
+                <artifactId>raven-logback</artifactId>
+                <version>${kencochrane.raven.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${json.path.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path-assert</artifactId>
+                <version>${json.path.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+
+            <dependency>
+                <artifactId>jackson-annotations</artifactId>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <version>${jackson.datatype.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>jackson-core</artifactId>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <version>${jackson.datatype.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>jackson-databind</artifactId>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <version>${jackson.datatype.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-cbor</artifactId>
+                <version>${jackson.datatype.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.datatype.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-java8</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+
+            <!-- hmh security modules -->
+            <dependency>
+                <groupId>com.hmhpub.common.security</groupId>
+                <artifactId>session-management-jdk6</artifactId>
+                <version>${common.components.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>google-collections</artifactId>
+                        <groupId>com.google.collections</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.hmhpub.common.token</groupId>
+                <artifactId>common-token-jdk6</artifactId>
+                <version>${common.components.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>google-collections</artifactId>
+                        <groupId>com.google.collections</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.hmhpub.common.instrumentation</groupId>
+                <artifactId>rest-api-instrumentation</artifactId>
+                <version>${rest.api-instrumentation.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>mockito-all</artifactId>
+                        <groupId>org.mockito</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>log4j</artifactId>
+                        <groupId>log4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>slf4j-log4j12</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- Reconsider Commin Security As there lot of issues with current one going head with own implementation -->
+            <!--            <dependency>
+                <groupId>com.hmhco.security</groupId>
+                <artifactId>security-common</artifactId>
+                <version>${security.common.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>*</artifactId>
+                        <groupId>*</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.hmhpub.common</groupId>
+                <artifactId>extras-security</artifactId>
+                <version>${extras.security.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>*</artifactId>
+                        <groupId>*</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>-->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>${apache.httpcomponents.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Customized Distributed Tracing via Spring Cloud Sleuth-->
+            <dependency>
+                <groupId>io.hmheng</groupId>
+                <artifactId>tracing-common</artifactId>
+                <version>${tracing.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.ui.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <data-services.spark.package.scope>compile</data-services.spark.package.scope>
+            </properties>
+            <modules>
+                <module>grading-common</module>
+                <module>grading-api</module>
+                <module>grading-data-services</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>grading-data-services-mesos-cluster</id>
+            <properties>
+                <data-services.spark.package.scope>provided</data-services.spark.package.scope>
+                <java.xmx.mb>900</java.xmx.mb>
+                <java.xms.mb>512</java.xms.mb>
+                <aurora.resources.cpu>0.5</aurora.resources.cpu>
+                <aurora.resources.mem>1 * GB</aurora.resources.mem>
+                <aurora.resources.disk>1 * GB</aurora.resources.disk>
+            </properties>
+            <modules>
+                <module>grading-common</module>
+                <module>grading-data-services</module>
+            </modules>
+        </profile>
+    </profiles>
+</project>

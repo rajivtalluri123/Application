@@ -1,0 +1,37 @@
+---
+server:
+  port: 8085
+management:
+  port: 9005
+---
+ security:
+    basic:
+       enabled: false
+
+---
+spring.jackson:
+  date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+  mapper.default-view-inclusion: true
+  serialization.WRITE_DATES_AS_TIMESTAMPS: false
+
+hmhsecurity:
+  enabled: true
+  audience: http://www.hmhco.com
+  issuer: https://identity.api.hmhco.com
+  csrfEnabled: false
+  sharedSecret: a5b7RFA/liU/0JNu6n0SWN9kxa9Iop3r0j1Ik+6EScLfMfPEOgNxhk/ig1+h1rmJbiqsD9OWqHRdtsLWpr6A0Fw6xPXZiooAP4cRhHurAcrmvjHTizw3jMxx1E2NZ0wz3YQOqnnc2jGqpMrtnBWrf1mJLnul9is2wZYLf1tl/ks=
+  clientStore:
+    #HMH Player
+    HMH\ Player: HMH Player
+    #ED UI
+    152ced50-1369-4b19-8b26-8f3d5d9bfd6a.hmhco.com: doN3gukszukF8pVlml7QH09L1XTApbv9MmFTAZLRv8BfbWGTGpXcq_evPwj
+    TS085Pr9kuZJ-woi6VkPjpBN11r_.hmhco.com: d5qcdNp1UX0gZyGnMk5coyunyeoyoLP7MFDai4ads-hNl-NH5kA0xU_OLa
+    # Grading Stream Service
+    AOZpdJIBo8lwGfH.hmhco.com: AOFmsTrxMk24unSqwOOa3-C5s8SfsgYPH70dOcqOzCaDqxIXF
+    # Scoring
+    AK1WAio16Abn9-B.hmhco.com: HE_Rv84g0ez96lb_hMc2Qz6sluDs6a1lioEtzQu3qY95sJEg2
+    #new keys
+    #HMH Player
+    sNoaDMVYOoJPVY7.hmhco.com: Jzd00eS9daobR0gNCAzOxZShinorlK831KEehDS9AaUTqKlRh
+    #HMH1
+    FG2DiE7SQYNBUeH.hmhco.com: fwKOPEjQTASUpdB9b6RgN3vkwx02038NVfAhVtOC_ZPh8Eszt
