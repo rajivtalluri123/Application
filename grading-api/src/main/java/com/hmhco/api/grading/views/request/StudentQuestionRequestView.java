@@ -25,5 +25,5 @@ public class StudentQuestionRequestView extends AbstractView{
     @NotNull
     private  String questionReference;
 
-    private String actualResponse;
+    private Object actualResponse;
 }

@@ -24,7 +24,7 @@ public class StudentQuestionView extends AbstractView{
     @NotNull
     private  String questionReference;
 
-    private String actualResponse;
+    private Object actualResponse;
 
     private String responseId;
 

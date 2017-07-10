@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.ListUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -202,7 +203,12 @@ public class StudentItemHelper {
                 Boolean isAutomarkable = studentQuestionEntity.isAutomarkable();
                 responses.setAutomarkable((isAutomarkable == null) ? Boolean.FALSE : isAutomarkable);
                 Map<String , Object> response = new HashMap<String, Object>();
-                response.put("value", studentScoreEntity.getValue());
+                String valueJson = studentScoreEntity.getValue();
+                Object valueObject = null;
+                try{
+                	valueObject = new ObjectMapper().readValue(valueJson, Object.class);
+                }catch(Exception e){}
+                response.put("value", valueObject);
                 responses.setResponse(response);
                 responseIds.add(studentScoreEntity.getResponseId());
                 Integer maxScore = studentScoreEntity.getMaxScore();

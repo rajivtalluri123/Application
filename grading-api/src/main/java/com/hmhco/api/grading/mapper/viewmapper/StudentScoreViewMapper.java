@@ -4,6 +4,8 @@ import com.hmhco.api.grading.entities.StudentScoreEntity;
 import com.hmhco.api.grading.views.AbstractView;
 import com.hmhco.api.grading.views.StudentScoreView;
 import io.hmheng.grading.utils.BeanPropertyUtils;
+
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,6 +18,14 @@ public class StudentScoreViewMapper implements SingleViewMapper<StudentScoreView
     public StudentScoreEntity convert(StudentScoreView view) {
         StudentScoreEntity studentScoreEntity = new StudentScoreEntity();
         BeanPropertyUtils.copyPropertiesWithOnlyPopulated(view, studentScoreEntity);
+        String value = "";
+        try {
+			value = new ObjectMapper().writeValueAsString(view.getValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
+        studentScoreEntity.setValue(value);
         return studentScoreEntity;
 
     }

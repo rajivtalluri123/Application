@@ -28,7 +28,7 @@ public class StudentScoreGetView extends AbstractView{
 
     private Boolean attempted;
 
-    private String value;
+    private Object value;
 
     private Integer weight;
 

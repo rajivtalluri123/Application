@@ -32,7 +32,7 @@ public class ResponseView extends AbstractView {
 
   private Boolean attempted;
 
-  private String value;
+  private Object value;
 
   @NotNull
   private Integer weight;
