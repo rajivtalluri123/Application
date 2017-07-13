@@ -6,6 +6,7 @@ import com.hmhco.api.grading.entities.readonly.ActivityStudentScoreViewEntity;
 import com.hmhco.api.grading.mapper.SingleEntityMapper;
 import com.hmhco.api.grading.views.getresponse.StudentScoreGetView;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -18,13 +19,15 @@ import java.io.IOException;
 @Component
 public class ActivityStudentScore implements SingleEntityMapper<ActivityStudentScoreViewEntity, StudentScoreGetView> {
 
-
+	@Autowired
+	MapperUtil mapperUtil;
+	
     @Override
     public StudentScoreGetView convert(ActivityStudentScoreViewEntity entity) {
         StudentScoreGetView  studentScoreGetView = new StudentScoreGetView();
         BeanUtils.copyProperties(entity,studentScoreGetView );
         String valueStr= entity.getValue();
-        Object value= MapperUtil.transformToObject(valueStr);
+        Object value= mapperUtil.transformToObject(valueStr);
         studentScoreGetView.setValue(value);
         return studentScoreGetView;
     }

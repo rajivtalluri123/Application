@@ -36,6 +36,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 @Component
 public class StudentItemHelper {
 
+	@Autowired
+	MapperUtil mapperUtil;
+	
   @Autowired
   private StudentItemViewMapper studentItemViewMapper;
 
@@ -204,7 +207,7 @@ public class StudentItemHelper {
                 Boolean isAutomarkable = studentQuestionEntity.isAutomarkable();
                 responses.setAutomarkable((isAutomarkable == null) ? Boolean.FALSE : isAutomarkable);
                 String valueJson = studentScoreEntity.getValue();
-                Object valueObject = MapperUtil.transformToObject(valueJson);;
+                Object valueObject = mapperUtil.transformToObject(valueJson);;
                 responses.setResponse(valueObject);
                 responseIds.add(studentScoreEntity.getResponseId());
                 Integer maxScore = studentScoreEntity.getMaxScore();

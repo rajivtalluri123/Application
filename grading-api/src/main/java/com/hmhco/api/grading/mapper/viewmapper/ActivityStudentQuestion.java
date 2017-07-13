@@ -32,6 +32,9 @@ public class ActivityStudentQuestion implements SingleEntityMapper<ActivityStude
 
     @Autowired
     private ActivityStudentScore activityStudentScore;
+    
+	@Autowired
+	MapperUtil mapperUtil;
 
     @Override
     public StudentQuestionGetView convert(ActivityStudentQuestionViewEntity entity) {
@@ -42,7 +45,7 @@ public class ActivityStudentQuestion implements SingleEntityMapper<ActivityStude
         if(scores != null )
             studentQuestionGetView.setResponses(scores);
         String actualResponseStr = entity.getActualResponse();
-        Object actualResponseObj = MapperUtil.transformToObject(actualResponseStr);
+        Object actualResponseObj = mapperUtil.transformToObject(actualResponseStr);
         studentQuestionGetView.setActualResponse(actualResponseObj);
 
         return studentQuestionGetView;

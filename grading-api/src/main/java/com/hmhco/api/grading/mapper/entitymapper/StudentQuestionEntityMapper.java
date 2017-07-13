@@ -6,6 +6,7 @@ import com.hmhco.api.grading.entities.StudentQuestionEntity;
 import com.hmhco.api.grading.mapper.SingleEntityMapper;
 import com.hmhco.api.grading.views.StudentQuestionView;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.codehaus.jackson.map.ObjectMapper;
 /**
@@ -14,12 +15,14 @@ import org.codehaus.jackson.map.ObjectMapper;
 @Component
 public class StudentQuestionEntityMapper implements SingleEntityMapper<StudentQuestionEntity,StudentQuestionView> {
 
+	@Autowired
+	MapperUtil mapperUtil;
   @Override
   public StudentQuestionView convert( StudentQuestionEntity entity){
     StudentQuestionView studentQuestionView = new StudentQuestionView();
     BeanUtils.copyProperties(entity, studentQuestionView);
     String actualResponseStr = entity.getActualResponse();
-    Object actualResponseObj = MapperUtil.transformToObject(actualResponseStr);
+    Object actualResponseObj = mapperUtil.transformToObject(actualResponseStr);
     studentQuestionView.setActualResponse(actualResponseObj);
     return studentQuestionView;
   }

@@ -6,6 +6,7 @@ import com.hmhco.api.grading.entities.StudentScoreEntity;
 import com.hmhco.api.grading.mapper.SingleEntityMapper;
 import com.hmhco.api.grading.views.StudentScoreView;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,12 +15,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentScoreEntityMapper implements SingleEntityMapper<StudentScoreEntity,StudentScoreView> {
 
+	@Autowired
+	MapperUtil mapperUtil;
+	
   @Override
   public StudentScoreView convert( StudentScoreEntity entity){
     StudentScoreView studentScoreView = new StudentScoreView();
     BeanUtils.copyProperties(entity, studentScoreView);
     String valueStr = entity.getValue();
-    Object valueObj = MapperUtil.transformToObject(valueStr);
+    Object valueObj = mapperUtil.transformToObject(valueStr);
     studentScoreView.setValue(valueObj);
     return studentScoreView;
   }

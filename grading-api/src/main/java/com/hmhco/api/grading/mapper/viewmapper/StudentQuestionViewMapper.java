@@ -25,6 +25,8 @@ import com.hmhco.api.grading.controller.utils.MapperUtil;
 @Component
 public class StudentQuestionViewMapper  implements SingleViewMapper<StudentQuestionView, StudentQuestionEntity> {
 
+	@Autowired
+	MapperUtil mapperUtil;
 
     @Autowired
     @Qualifier("genericEntityMapper")
@@ -34,7 +36,7 @@ public class StudentQuestionViewMapper  implements SingleViewMapper<StudentQuest
     public StudentQuestionEntity convert(StudentQuestionView view) {
         StudentQuestionEntity studentQuestionEntity = new StudentQuestionEntity();
         BeanPropertyUtils.copyPropertiesWithOnlyPopulated(view, studentQuestionEntity);
-        String actualResponse = MapperUtil.transformToString(view.getActualResponse());
+        String actualResponse = mapperUtil.transformToString(view.getActualResponse());
         studentQuestionEntity.setActualResponse(actualResponse);
         if(!CollectionUtils.isEmpty(view.getResponses())) {
             studentQuestionEntity.setStudentScores(getStudentScores(view.getResponses(), studentQuestionEntity));
@@ -48,7 +50,7 @@ public class StudentQuestionViewMapper  implements SingleViewMapper<StudentQuest
         if(!CollectionUtils.isEmpty(studentScoresView)){
             studentScoresView.stream().forEach(studentScores->{
                 StudentScoreEntity  studentScoreEntity = entityMapper.convert(studentScores);
-				String value = MapperUtil.transformToString(studentScores.getValue());
+				String value = mapperUtil.transformToString(studentScores.getValue());
                 studentScoreEntity.setValue(value);
                 studentScoreEntity.setStudentQuestions(studentQuestionEntity);
                 studentScoreEntity.setStudentItems(studentQuestionEntity.getStudentItems());

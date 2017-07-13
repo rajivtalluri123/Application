@@ -48,7 +48,7 @@ public class Responses {
   private Integer maxManualScore;
 
   @JsonProperty("response")
-  private Map<String,Object> response;
+  private Object response;
 
   @Override
   public String toString() {
