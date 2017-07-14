@@ -26,6 +26,7 @@ import java.util.UUID;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.Map;
 
 /**
  * Created by nandipatim on 5/31/17.
@@ -157,13 +158,12 @@ public class GradingServiceImpl implements GradingService{
         activityItemScore.setScoreReference(resp.getQuestionReference());
         activityItemScore.setWeight(resp.getMaxScore());
         activityItemScoreList.add(activityItemScore);
-        if (resp.getResponse() != null) {
-          if (resp.getResponse().containsKey("apiVersion")) {
-            Gson gson = new Gson();
-            String version = gson.toJson(resp.getResponse().get("apiVersion"));
-            activityItemScore.setVersion(version);
-          }
-        }
+        Object apiVersionObj = retrieveValueFromMap(resp.getResponse(), "apiVersion");
+		if (apiVersionObj != null) {
+			Gson gson = new Gson();
+			String version = gson.toJson(apiVersionObj);
+			activityItemScore.setVersion(version);
+		}
       }
     }
     return activityItemScoreList;
@@ -192,13 +192,8 @@ public class GradingServiceImpl implements GradingService{
     List<StudentQuestion> studentQuestionList = new ArrayList<StudentQuestion>();
     StudentQuestion studentQuestion = new StudentQuestion();
     studentQuestion.setQuestionReference(response.getQuestionReference());
-    if (response.getResponse() != null) {
-      if (response.getResponse().containsKey("value")) {
-        Gson gson = new Gson();
-        String responseValue = gson.toJson(response.getResponse().get("value"));
-        studentQuestion.setActualResponse(responseValue);
-      }
-    }
+    Object actualResponseObj = retrieveValueFromMap(response.getResponse(), "value");
+	studentQuestion.setActualResponse(actualResponseObj);
     studentQuestion.setResponseId(response.getResponseId());
     if (response.isAutomarkable()) {
       List<StudentScore> studentScoreList = getStudentScore(response);
@@ -208,25 +203,40 @@ public class GradingServiceImpl implements GradingService{
     return studentQuestionList;
   }
 
-  private List<StudentScore> getStudentScore(Responses response) {
-    List<StudentScore> studentScoreList = new ArrayList<StudentScore>();
-    StudentScore studentScore = new StudentScore();
-    studentScore.setResponseId(response.getResponseId().toString());
-    studentScore.setScoreReference(response.getQuestionReference());
-    studentScore.setAttempted(response.isAttempted());
-    studentScore.setMaxScore(response.getMaxScore());
-    studentScore.setScore(response.getScore());
-    //studentScore.setStaffPersonalRefId();
-    studentScore.setWeight(response.getMaxScore());
-    if (response.getResponse() != null) {
-      if (response.getResponse().containsKey("value")) {
-        Gson gson = new Gson();
-        String responseValue = gson.toJson(response.getResponse().get("value"));
-        studentScore.setValue(responseValue);
-      }
-    }
-    studentScoreList.add(studentScore);
-    return studentScoreList;
-  }
+  	private List<StudentScore> getStudentScore(Responses response) {
+	    List<StudentScore> studentScoreList = new ArrayList<StudentScore>();
+	    StudentScore studentScore = new StudentScore();
+	    studentScore.setResponseId(response.getResponseId().toString());
+	    studentScore.setScoreReference(response.getQuestionReference());
+	    studentScore.setAttempted(response.isAttempted());
+	    studentScore.setMaxScore(response.getMaxScore());
+	    studentScore.setScore(response.getScore());
+	    //studentScore.setStaffPersonalRefId();
+	    studentScore.setWeight(response.getMaxScore());
+	    Object valueObj = retrieveValueFromMap(response.getResponse(), "value");
+		studentScore.setValue(valueObj);
+	    studentScoreList.add(studentScore);
+	    return studentScoreList;
+	  }
+	
+	
 
+	private Object retrieveValueFromMap(Object responseObj, String key) {
+
+		Object responseValue = null;
+
+		if (responseObj == null || key == null) {
+			return null;
+		}
+
+		if (responseObj instanceof Map) {
+			Map responseMap = (Map) responseObj;
+			if (responseMap.containsKey(key)) {
+				responseValue = responseMap.get(key);
+			}
+		}
+
+		return responseValue;
+	}
+	
 }
