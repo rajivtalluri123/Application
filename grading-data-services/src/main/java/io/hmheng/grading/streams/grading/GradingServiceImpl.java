@@ -221,7 +221,7 @@ public class GradingServiceImpl implements GradingService{
 	
 	
 
-	private Object retrieveValueFromMap(Object responseObj, String key) {
+	public Object retrieveValueFromMap(Object responseObj, String key) {
 
 		Object responseValue = null;
 
