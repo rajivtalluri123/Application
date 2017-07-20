@@ -42,8 +42,18 @@ public class ActivityStudentQuestion implements SingleEntityMapper<ActivityStude
         StudentQuestionGetView studentQuestionGetView = new StudentQuestionGetView();
         BeanUtils.copyProperties(entity,studentQuestionGetView );
         List<StudentScoreGetView> scores = activityStudentScore.convert(entity.getResponses());
-        if(scores != null )
+        if(scores != null ){
             studentQuestionGetView.setResponses(scores);
+        }
+        
+        Integer totalScore = null;
+        for (StudentScoreGetView score : studentQuestionGetView.getResponses()) {
+            if (score.getScore() != null) {
+                totalScore = totalScore == null ? score.getScore() : totalScore + score.getScore();
+            }
+        }
+        studentQuestionGetView.setScore(totalScore);
+       
         String actualResponseStr = entity.getActualResponse();
         Object actualResponseObj = mapperUtil.transformToObject(actualResponseStr);
         studentQuestionGetView.setActualResponse(actualResponseObj);

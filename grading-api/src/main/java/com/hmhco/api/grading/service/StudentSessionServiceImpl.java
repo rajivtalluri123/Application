@@ -59,6 +59,7 @@ import com.hmhco.api.grading.views.StudentQuestionView;
 import com.hmhco.api.grading.views.StudentScoreView;
 import com.hmhco.api.grading.views.getresponse.ScoringCompleteResponse;
 import com.hmhco.api.grading.views.getresponse.StudentItemGetView;
+import com.hmhco.api.grading.views.getresponse.StudentSessionGetView;
 import com.hmhco.api.grading.views.request.ItemsRequestView;
 import com.hmhco.api.grading.views.request.QuestionsRequestView;
 import com.hmhco.api.grading.views.request.ResponseView;
@@ -600,6 +601,23 @@ public class StudentSessionServiceImpl implements  StudentSessionService{
             throw new BadRequestException();
         return  saveStudentSessionResponse;
     }
+
+	@Override
+	public void setSessionLevelScores(ScoringCompleteResponse scoringCompleteResponse) {
+		Integer totalMaxScore = 0;
+		Integer totalScore = 0;
+		StudentSessionGetView studentSessionView = scoringCompleteResponse.getStudentSession();
+		ActivityView activityView = studentSessionView.getAssignment();
+		List<StudentItemGetView> studentItemViews = studentSessionView.getItems();
+		for (StudentItemGetView studentItemGetView : studentItemViews) {
+			Integer maxScore = studentItemGetView.getMaxScore();
+			Integer score = studentItemGetView.getScore();
+			totalMaxScore += maxScore;
+			totalScore += score;
+		}
+		studentSessionView.setScore(totalScore);
+		activityView.setMaxScore(totalMaxScore);
+	}
 
 }
 

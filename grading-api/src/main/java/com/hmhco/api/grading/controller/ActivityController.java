@@ -180,6 +180,7 @@ public class ActivityController extends BaseController {
     ActivityView activityView = studentSessionService.getActivityDetails(activityRefId);
     scoringCompleteResponse.getStudentSession().setAssignment(activityView);
 
+    studentSessionService.setSessionLevelScores(scoringCompleteResponse);
     if(!CollectionUtils.isEmpty(scoringCompleteResponse.getIncompleteItemReferences())){
       response.setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
     }

@@ -44,6 +44,8 @@ public class ActivityStudentItemMapper implements SingleEntityMapper<ActivityStu
         {
             studentItemGetView.setQuestions(questions);
             studentItemGetView.setStatus(getItemStatus(questions));
+            Integer score = calculateScore(questions);
+            studentItemGetView.setScore(score);
         }
 
         if (excludeQuestionsAndScores) {
@@ -52,6 +54,14 @@ public class ActivityStudentItemMapper implements SingleEntityMapper<ActivityStu
 
         return studentItemGetView;
     }
+    
+	public Integer calculateScore(List<StudentQuestionGetView> questions) {
+		Integer totalScore = null;
+		for (StudentQuestionGetView question : questions) {
+			totalScore = totalScore == null ? question.getScore() : totalScore + question.getScore();
+		}
+		return totalScore;
+	}
 
      public Status getItemStatus(List<StudentQuestionGetView> questions){
 

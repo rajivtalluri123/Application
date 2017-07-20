@@ -31,6 +31,8 @@ public class StudentQuestionGetView extends AbstractView{
     private String rubricReference;
 
     private String questionType;
+    
+    private Integer score;
 
 
     private List<StudentScoreGetView> responses;

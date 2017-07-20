@@ -37,5 +37,7 @@ public interface StudentSessionService {
  void pushStatusToAssignment(UUID sessionId);
 
  Page<StudentItemGetView> getStudentActivityItems(Pageable pageable, UUID sessionId, boolean onlyManualScored, boolean includeQuestionsAndScores);
+ 
+ void setSessionLevelScores(ScoringCompleteResponse scoringCompleteResponse);
 
 }

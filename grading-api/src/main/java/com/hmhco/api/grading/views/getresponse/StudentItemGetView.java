@@ -30,6 +30,8 @@ public class StudentItemGetView extends AbstractView{
     private Integer time;
 
     private Integer maxScore;
+    
+    private Integer score;
 
     private Boolean userFlagged;
 
