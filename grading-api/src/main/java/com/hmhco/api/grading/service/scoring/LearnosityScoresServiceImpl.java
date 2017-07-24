@@ -57,8 +57,6 @@ public class LearnosityScoresServiceImpl implements LearnosityScoresService {
     studentSession.setSessionDuration(studentSessionEntity.getSessionDuration());
     studentSession.setNumAttempted(studentSessionEntity.getNumAttempted());
     ActivityEntity activityEntity = studentSessionEntity.getActivityEntity();
-    studentSession.setMaxScore(activityEntity.getMaxScore());
-    studentSession.setNumQuestions(activityEntity.getNumQuestions());
     studentSession.setMetadata(populateMetaData(studentSessionEntity, activityEntity));
 
     StudentItemHelper.StudentItems studentItems = studentItemHelper.createResponses(
@@ -66,6 +64,19 @@ public class LearnosityScoresServiceImpl implements LearnosityScoresService {
 
     studentSession.setItems(studentItems.getItems());
     studentSession.setResponses(studentItems.getResponses());
+    studentSession.setMaxScore(activityEntity.getMaxScore());
+    if(!studentItems.getMaxScore().equals(activityEntity.getMaxScore())
+        && studentItems.getMaxScore() > activityEntity.getMaxScore()){
+      studentSession.setMaxScore(studentItems.getMaxScore());
+      activityEntity.setMaxScore(studentItems.getMaxScore());
+    }
+
+    if(!studentItems.getScore().equals(studentSessionEntity.getScore())
+        && studentItems.getScore() > 0){
+      studentSession.setScore(studentItems.getScore());
+      studentSessionEntity.setScore(studentItems.getScore());
+    }
+    studentSession.setNumQuestions(activityEntity.getNumQuestions());
 
     KinesisPutRecordResult putRecordResult = (pushScores) ? kinesisStreamDataService.pushToStream(studentSession
         , produceAssesmentScoresStreamConfiguration) : new KinesisPutRecordResult();

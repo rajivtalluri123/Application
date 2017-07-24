@@ -1,5 +1,6 @@
 package com.hmhco.api.grading.mapper.viewmapper;
 
+import com.hmhco.api.grading.controller.utils.MapperUtil;
 import com.hmhco.api.grading.entities.StudentQuestionEntity;
 import com.hmhco.api.grading.entities.StudentScoreEntity;
 import com.hmhco.api.grading.mapper.EntityMapper;
@@ -17,16 +18,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hmhco.api.grading.controller.utils.MapperUtil;
-
 /**
  * Created by srikanthk on 5/3/17.
  */
 @Component
 public class StudentQuestionViewMapper  implements SingleViewMapper<StudentQuestionView, StudentQuestionEntity> {
 
-	@Autowired
-	MapperUtil mapperUtil;
+
+    @Autowired
+    MapperUtil mapperUtil;
 
     @Autowired
     @Qualifier("genericEntityMapper")
@@ -50,7 +50,7 @@ public class StudentQuestionViewMapper  implements SingleViewMapper<StudentQuest
         if(!CollectionUtils.isEmpty(studentScoresView)){
             studentScoresView.stream().forEach(studentScores->{
                 StudentScoreEntity  studentScoreEntity = entityMapper.convert(studentScores);
-				String value = mapperUtil.transformToString(studentScores.getValue());
+                String value = mapperUtil.transformToString(studentScores.getValue());
                 studentScoreEntity.setValue(value);
                 studentScoreEntity.setStudentQuestions(studentQuestionEntity);
                 studentScoreEntity.setStudentItems(studentQuestionEntity.getStudentItems());

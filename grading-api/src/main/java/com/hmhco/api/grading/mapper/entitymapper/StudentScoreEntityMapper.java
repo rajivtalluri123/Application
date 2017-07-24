@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentScoreEntityMapper implements SingleEntityMapper<StudentScoreEntity,StudentScoreView> {
 
-	@Autowired
-	MapperUtil mapperUtil;
-	
+  @Autowired
+  MapperUtil mapperUtil;
+
   @Override
   public StudentScoreView convert( StudentScoreEntity entity){
     StudentScoreView studentScoreView = new StudentScoreView();

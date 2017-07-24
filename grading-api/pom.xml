@@ -5,13 +5,13 @@
     <parent>
         <artifactId>grading-services</artifactId>
         <groupId>io.hmheng.scoring</groupId>
-        <version>0.1.10-SNAPSHOT</version>
+        <version>0.1.19-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>grading-api</artifactId>
-    <version>0.1.10-SNAPSHOT</version>
+    <version>0.1.19-SNAPSHOT</version>
     <name>HMHCO Grading API Services</name>
     <description>HMHCO Grading</description>
     <properties>

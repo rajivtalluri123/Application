@@ -3,11 +3,14 @@ package com.hmhco.api.grading.mapper.entitymapper;
 import com.hmhco.api.grading.entities.AbstractEntity;
 import com.hmhco.api.grading.entities.readonly.ActivityStudentItemViewEntity;
 import com.hmhco.api.grading.mapper.SingleEntityMapper;
-import com.hmhco.api.grading.mapper.viewmapper.ActivityStudentQuestion;
+import com.hmhco.api.grading.mapper.viewmapper.ActivityStudentQuestionMapper;
 import com.hmhco.api.grading.views.getresponse.StudentItemGetView;
 import com.hmhco.api.grading.views.getresponse.StudentQuestionGetView;
 import com.hmhco.api.grading.views.getresponse.StudentScoreGetView;
 import io.hmheng.grading.utils.Status;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,48 +25,44 @@ import java.util.List;
 public class ActivityStudentItemMapper implements SingleEntityMapper<ActivityStudentItemViewEntity, StudentItemGetView> {
 
     @Autowired
-    private ActivityStudentQuestion activityStudentQuestion;
+    private ActivityStudentQuestionMapper activityStudentQuestionMapper;
 
-    public boolean isExcludeQuestionsAndScores() {
-      return excludeQuestionsAndScores;
+    public List<StudentItemGetView> convert(Collection<ActivityStudentItemViewEntity> entities , Boolean excludeQuestionsAndScores) {
+      List<StudentItemGetView> studentItemGetViews = new ArrayList<>();
+       entities.stream().forEach(activityStudentItemViewEntity ->
+           studentItemGetViews.add(convert(activityStudentItemViewEntity , excludeQuestionsAndScores)));
+
+      return studentItemGetViews;
     }
 
-    public void setExcludeQuestionsAndScores(boolean excludeQuestionsAndScores) {
-      this.excludeQuestionsAndScores = excludeQuestionsAndScores;
-    }
+    public StudentItemGetView convert(ActivityStudentItemViewEntity entity , Boolean  excludeQuestionsAndScores){
 
-    private boolean excludeQuestionsAndScores;
+      StudentItemGetView studentItemGetView = new StudentItemGetView();
+      BeanUtils.copyProperties(entity,studentItemGetView );
+
+      List<StudentQuestionGetView> questions = activityStudentQuestionMapper.convert(entity.getQuestions());
+      if(questions!= null )
+      {
+        studentItemGetView.setQuestions(questions);
+        studentItemGetView.setStatus(getItemStatus(questions));
+        Integer maxScore = rollupMaxScore(questions);
+        studentItemGetView.setMaxScore(maxScore);
+      }
+
+      if (excludeQuestionsAndScores) {
+        studentItemGetView.setQuestions(null);
+      }
+
+      return studentItemGetView;
+    }
 
     @Override
     public StudentItemGetView convert(ActivityStudentItemViewEntity entity) {
-        StudentItemGetView studentItemGetView = new StudentItemGetView();
-        BeanUtils.copyProperties(entity,studentItemGetView );
 
-        List<StudentQuestionGetView> questions = activityStudentQuestion.convert(entity.getQuestions());
-        if(questions!= null )
-        {
-            studentItemGetView.setQuestions(questions);
-            studentItemGetView.setStatus(getItemStatus(questions));
-            Integer score = calculateScore(questions);
-            studentItemGetView.setScore(score);
-        }
-
-        if (excludeQuestionsAndScores) {
-            studentItemGetView.setQuestions(null);
-        }
-
-        return studentItemGetView;
+      return convert(entity , false);
     }
-    
-	public Integer calculateScore(List<StudentQuestionGetView> questions) {
-		Integer totalScore = null;
-		for (StudentQuestionGetView question : questions) {
-			totalScore = totalScore == null ? question.getScore() : totalScore + question.getScore();
-		}
-		return totalScore;
-	}
 
-     public Status getItemStatus(List<StudentQuestionGetView> questions){
+    public Status getItemStatus(List<StudentQuestionGetView> questions){
 
         Status status = Status.NOT_SCORED;
 
@@ -85,7 +84,17 @@ public class ActivityStudentItemMapper implements SingleEntityMapper<ActivityStu
 
          return status;
 
-     }
+    }
+
+    public Integer rollupMaxScore(List<StudentQuestionGetView> questions) {
+        Integer maxScore = null;
+        for (StudentQuestionGetView question : questions){
+            if (question.getMaxScore() != null) {
+                maxScore = maxScore == null ? question.getMaxScore() : maxScore + question.getMaxScore();
+            }
+        }
+        return maxScore;
+    }
 
     @Override
     public boolean supports(Class<? extends AbstractEntity> clazz) {

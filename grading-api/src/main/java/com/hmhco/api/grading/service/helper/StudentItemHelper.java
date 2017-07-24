@@ -36,9 +36,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 @Component
 public class StudentItemHelper {
 
-	@Autowired
-	MapperUtil mapperUtil;
-	
   @Autowired
   private StudentItemViewMapper studentItemViewMapper;
 
@@ -47,6 +44,9 @@ public class StudentItemHelper {
 
   @Autowired
   private ActivityStudentItemViewRepository activityStudentItemViewRepository;
+
+  @Autowired
+  MapperUtil mapperUtil;
 
 
   public List<StudentItemEntity> getOrCreateStudentItemEntity(SaveStudentSessionRequest request
@@ -163,9 +163,10 @@ public class StudentItemHelper {
     List<Responses> responsesList = new ArrayList<>();
 
     List<Item> items = new ArrayList<>();
-
     studentItems.setResponses(responsesList);
     studentItems.setItems(items);
+    studentItems.setMaxScore(0);
+    studentItems.setScore(0);
 
     if(!CollectionUtils.isEmpty(itemViewEntities)) {
       itemViewEntities.forEach(studentItemEntity -> {
@@ -207,15 +208,16 @@ public class StudentItemHelper {
                 Boolean isAutomarkable = studentQuestionEntity.isAutomarkable();
                 responses.setAutomarkable((isAutomarkable == null) ? Boolean.FALSE : isAutomarkable);
                 String valueJson = studentScoreEntity.getValue();
-                Object valueObject = mapperUtil.transformToObject(valueJson);;
+                Object valueObject = mapperUtil.transformToObject(valueJson);
                 responses.setResponse(valueObject);
                 responseIds.add(studentScoreEntity.getResponseId());
                 Integer maxScore = studentScoreEntity.getMaxScore();
                 if(maxScore == null)
                   maxScore = 0;
                 scoring.setMaxScore(scoring.getMaxScore() + maxScore);
-                scoring.setScore(scoring.getScore() + ((studentScoreEntity.getScore() == null) ? 0 :
-                    studentScoreEntity.getScore()));
+                Integer studentScore = ((studentScoreEntity.getScore() == null) ? 0 :
+                    studentScoreEntity.getScore());
+                scoring.setScore(scoring.getScore() + studentScore);
                 scoring.setType(studentScoreEntity.getScoreType());
                 if(isAttempted) {
                   scoring.setMaxScoreOfAttempted(scoring.getMaxScoreOfAttempted() + maxScore);
@@ -224,6 +226,8 @@ public class StudentItemHelper {
             }
           });
         }
+        studentItems.setMaxScore(scoring.getMaxScore() + studentItems.getMaxScore());
+        studentItems.setScore(scoring.getScore() + studentItems.getScore());
       });
     }
       return studentItems;
@@ -233,6 +237,8 @@ public class StudentItemHelper {
   public static class StudentItems {
     List<Responses> responses;
     List<Item> items;
+    Integer maxScore;
+    Integer score;
 
     public List<Responses> getResponses() {
       return responses;
@@ -248,6 +254,22 @@ public class StudentItemHelper {
 
     public void setItems(List<Item> items) {
       this.items = items;
+    }
+
+    public Integer getMaxScore() {
+      return maxScore;
+    }
+
+    public void setMaxScore(Integer maxScore) {
+      this.maxScore = maxScore;
+    }
+
+    public Integer getScore() {
+      return score;
+    }
+
+    public void setScore(Integer score) {
+      this.score = score;
     }
   }
 

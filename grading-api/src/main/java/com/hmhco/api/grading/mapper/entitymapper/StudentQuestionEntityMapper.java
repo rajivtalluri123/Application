@@ -15,8 +15,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 @Component
 public class StudentQuestionEntityMapper implements SingleEntityMapper<StudentQuestionEntity,StudentQuestionView> {
 
-	@Autowired
-	MapperUtil mapperUtil;
+  @Autowired
+  MapperUtil mapperUtil;
+
   @Override
   public StudentQuestionView convert( StudentQuestionEntity entity){
     StudentQuestionView studentQuestionView = new StudentQuestionView();

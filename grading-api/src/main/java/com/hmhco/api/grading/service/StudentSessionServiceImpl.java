@@ -59,7 +59,6 @@ import com.hmhco.api.grading.views.StudentQuestionView;
 import com.hmhco.api.grading.views.StudentScoreView;
 import com.hmhco.api.grading.views.getresponse.ScoringCompleteResponse;
 import com.hmhco.api.grading.views.getresponse.StudentItemGetView;
-import com.hmhco.api.grading.views.getresponse.StudentSessionGetView;
 import com.hmhco.api.grading.views.request.ItemsRequestView;
 import com.hmhco.api.grading.views.request.QuestionsRequestView;
 import com.hmhco.api.grading.views.request.ResponseView;
@@ -203,8 +202,10 @@ public class StudentSessionServiceImpl implements  StudentSessionService{
             // 3.All student related studentsession,studentitem,studentquestion and studentscore.
 
             List<ItemsView> itemsView = getItems(request);
-            itemEntityRepository.save(itemHelper.createorUpdateItemEntities(itemsView));
-            itemEntityRepository.flush();
+            if(!CollectionUtils.isEmpty(itemsView)) {
+                itemEntityRepository.save(itemHelper.createorUpdateItemEntities(itemsView));
+                itemEntityRepository.flush();
+            }
 
             ActivityEntity activityEntity = activityHelper.getOrCreateActivity(request);
             activityEntityRepository.saveAndFlush(activityEntity);
@@ -215,7 +216,16 @@ public class StudentSessionServiceImpl implements  StudentSessionService{
 
             List<StudentItemEntity> studentItemEntities = studentItemHelper.getOrCreateStudentItemEntity(request , studentSessionEntity, getStudentItems(request));
             studentSessionEntity.setStudentItems(studentItemEntities);
+
             studentSessionEntityRepository.save(studentSessionEntity);
+
+            if(StudentSessionRequestType.SCORES == request.getRequestType() && studentSessionEntity.getDatePushedToStatus()== null){
+                KinesisPutRecordResult putRecordResultAssignmentStatus = studentSessionDetailService.pushStatusToAssignmentService(
+                    studentSessionEntity, Boolean.TRUE);
+                studentSessionEntity.setStatusStreamSeq(putRecordResultAssignmentStatus.getSequenceNumber());
+                studentSessionEntity.setDatePushedToStatus(LocalDateTime.now());
+                studentSessionEntityRepository.saveAndFlush(studentSessionEntity);
+            }
 
             return studentSessionResponse;
 
@@ -431,17 +441,26 @@ public class StudentSessionServiceImpl implements  StudentSessionService{
             }
 
 
-            if(isScoringCompleted && studentSessionEntity.getDatePushedToScoring() == null) {
-               KinesisPutRecordResult putRecordResult = learnosityScoresService.createLearnosityStudentSession(studentSessionEntity
-                   ,itemViewEntities, Boolean.TRUE);
-               String sequenceNumber = putRecordResult.getSequenceNumber();
-               studentSessionEntity.setScoringStreamSeq(sequenceNumber);
-               studentSessionEntity.setDatePushedToScoring(LocalDateTime.now());
+            if(isScoringCompleted) {
+                KinesisPutRecordResult putRecordResult = learnosityScoresService.createLearnosityStudentSession(studentSessionEntity
+                    , itemViewEntities, Boolean.TRUE);
+                String sequenceNumber = putRecordResult.getSequenceNumber();
+                studentSessionEntity.setScoringStreamSeq(sequenceNumber);
+                studentSessionEntity.setDatePushedToScoring(LocalDateTime.now());
+            }
+
+            if(isScoringCompleted && studentSessionEntity.getDatePushedToStatus() == null) {
                 KinesisPutRecordResult putRecordResultAssignmentStatus = studentSessionDetailService.pushStatusToAssignmentService(
                     studentSessionEntity, Boolean.TRUE);
                 studentSessionEntity.setStatusStreamSeq(putRecordResultAssignmentStatus.getSequenceNumber());
                 studentSessionEntity.setDatePushedToStatus(LocalDateTime.now());
-               studentSessionEntityRepository.saveAndFlush(studentSessionEntity);
+            }
+
+            if(isScoringCompleted){
+                scoringCompleteResponse.getStudentSession().setScore(studentSessionEntity.getScore());
+                scoringCompleteResponse.getStudentSession().getAssignment().setMaxScore(
+                    studentSessionEntity.getActivityEntity().getMaxScore());
+                studentSessionEntityRepository.saveAndFlush(studentSessionEntity);
             }
 
         }catch (RuntimeException ex){
@@ -520,7 +539,7 @@ public class StudentSessionServiceImpl implements  StudentSessionService{
 
             StudentSessionEntity studentSessionEntity = studentSessionHelper.findBySessionRefId(sessionId);
             KinesisPutRecordResult putRecordResult = studentSessionDetailService.pushStatusToAssignmentService(
-                studentSessionEntity , Boolean.TRUE);
+                studentSessionEntity, Boolean.TRUE);
             logger.info("Session Id {} , Queue Sequence Number {} ,  Shrad ID {}", sessionId, putRecordResult.getSequenceNumber()
                 , putRecordResult.getShardId());
             studentSessionEntity.setStatusStreamSeq(putRecordResult.getSequenceNumber());
@@ -544,8 +563,7 @@ public class StudentSessionServiceImpl implements  StudentSessionService{
         if (activityStudentItemViewEntityPage == null)
           throw new NotFoundException();
 
-        activityStudentItemMapper.setExcludeQuestionsAndScores(!includeQuestionsAndScores);
-        return new PageImpl<>(activityStudentItemMapper.convert(activityStudentItemViewEntityPage.getContent()),
+        return new PageImpl<>(activityStudentItemMapper.convert(activityStudentItemViewEntityPage.getContent() , !includeQuestionsAndScores),
             pageable, activityStudentItemViewEntityPage.getTotalElements());
     }
 
@@ -601,23 +619,6 @@ public class StudentSessionServiceImpl implements  StudentSessionService{
             throw new BadRequestException();
         return  saveStudentSessionResponse;
     }
-
-	@Override
-	public void setSessionLevelScores(ScoringCompleteResponse scoringCompleteResponse) {
-		Integer totalMaxScore = 0;
-		Integer totalScore = 0;
-		StudentSessionGetView studentSessionView = scoringCompleteResponse.getStudentSession();
-		ActivityView activityView = studentSessionView.getAssignment();
-		List<StudentItemGetView> studentItemViews = studentSessionView.getItems();
-		for (StudentItemGetView studentItemGetView : studentItemViews) {
-			Integer maxScore = studentItemGetView.getMaxScore();
-			Integer score = studentItemGetView.getScore();
-			totalMaxScore += maxScore;
-			totalScore += score;
-		}
-		studentSessionView.setScore(totalScore);
-		activityView.setMaxScore(totalMaxScore);
-	}
 
 }
 

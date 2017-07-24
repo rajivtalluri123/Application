@@ -2,7 +2,6 @@ package com.hmhco.api.grading.service.assignment;
 
 import com.hmhco.api.grading.entities.StudentSessionEntity;
 import com.hmhco.api.grading.views.assignment.StudentSessionStatus;
-import io.hmheng.grading.learnosity.domain.StudentSession;
 import io.hmheng.grading.streams.config.ProduceAssesmentStatusStreamConfiguration;
 import io.hmheng.grading.streams.kinesis.KinesisStreamDataService;
 import io.hmheng.grading.streams.kinesis.model.KinesisPutRecordResult;

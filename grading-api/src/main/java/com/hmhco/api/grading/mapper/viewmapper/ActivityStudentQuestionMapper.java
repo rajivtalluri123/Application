@@ -1,24 +1,18 @@
 package com.hmhco.api.grading.mapper.viewmapper;
 
 
-import com.google.gson.reflect.TypeToken;
+
+
 import com.hmhco.api.grading.controller.utils.MapperUtil;
 import com.hmhco.api.grading.entities.AbstractEntity;
 import com.hmhco.api.grading.entities.readonly.ActivityStudentQuestionViewEntity;
 import com.hmhco.api.grading.mapper.SingleEntityMapper;
 import com.hmhco.api.grading.views.getresponse.StudentQuestionGetView;
 import com.hmhco.api.grading.views.getresponse.StudentScoreGetView;
-import org.codehaus.jackson.map.type.TypeFactory;
-import org.codehaus.jackson.type.JavaType;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.codehaus.jackson.map.ObjectMapper;
-
-import java.io.IOException;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,14 +21,13 @@ import java.util.Map;
  */
 
 @Component
-public class ActivityStudentQuestion implements SingleEntityMapper<ActivityStudentQuestionViewEntity,StudentQuestionGetView> {
+public class ActivityStudentQuestionMapper implements SingleEntityMapper<ActivityStudentQuestionViewEntity,StudentQuestionGetView> {
 
+    @Autowired
+    MapperUtil mapperUtil;
 
     @Autowired
     private ActivityStudentScore activityStudentScore;
-    
-	@Autowired
-	MapperUtil mapperUtil;
 
     @Override
     public StudentQuestionGetView convert(ActivityStudentQuestionViewEntity entity) {
@@ -42,24 +35,26 @@ public class ActivityStudentQuestion implements SingleEntityMapper<ActivityStude
         StudentQuestionGetView studentQuestionGetView = new StudentQuestionGetView();
         BeanUtils.copyProperties(entity,studentQuestionGetView );
         List<StudentScoreGetView> scores = activityStudentScore.convert(entity.getResponses());
-        if(scores != null ){
+        if(scores != null ) {
             studentQuestionGetView.setResponses(scores);
+
         }
-        
-        Integer totalScore = null;
-        for (StudentScoreGetView score : studentQuestionGetView.getResponses()) {
-            if (score.getScore() != null) {
-                totalScore = totalScore == null ? score.getScore() : totalScore + score.getScore();
-            }
-        }
-        studentQuestionGetView.setScore(totalScore);
-       
+
+
         String actualResponseStr = entity.getActualResponse();
         Object actualResponseObj = mapperUtil.transformToObject(actualResponseStr);
         studentQuestionGetView.setActualResponse(actualResponseObj);
 
-        return studentQuestionGetView;
 
+        Integer maxScore = null;
+        for (StudentScoreGetView score : studentQuestionGetView.getResponses()) {
+            if (score.getScore() != null) {
+                maxScore = maxScore == null ? score.getMaxScore() : maxScore + score.getMaxScore();
+            }
+        }
+        studentQuestionGetView.setMaxScore(maxScore);
+
+        return studentQuestionGetView;
     }
 
     @Override

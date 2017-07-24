@@ -19,9 +19,9 @@ import java.io.IOException;
 @Component
 public class ActivityStudentScore implements SingleEntityMapper<ActivityStudentScoreViewEntity, StudentScoreGetView> {
 
-	@Autowired
-	MapperUtil mapperUtil;
-	
+    @Autowired
+    MapperUtil mapperUtil;
+
     @Override
     public StudentScoreGetView convert(ActivityStudentScoreViewEntity entity) {
         StudentScoreGetView  studentScoreGetView = new StudentScoreGetView();
