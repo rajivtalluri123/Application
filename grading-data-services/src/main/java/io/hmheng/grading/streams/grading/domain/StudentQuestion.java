@@ -25,6 +25,8 @@ public class StudentQuestion extends AbstractRequest {
   private  String questionReference;
 
   private Object actualResponse;
+  
+  private Object binaryResponse;
 
   private String responseId;
 

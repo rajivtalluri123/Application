@@ -30,6 +30,8 @@ public class StudentQuestionGetView extends AbstractView{
     private  String questionReference;
 
     private Object actualResponse;
+    
+    private Object binaryResponse;
 
     private String rubricReference;
 

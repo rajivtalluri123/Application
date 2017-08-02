@@ -195,6 +195,7 @@ public class GradingServiceImpl implements GradingService {
     studentQuestion.setQuestionReference(response.getQuestionReference());
     Object actualResponseObj = retrieveValueFromMap(response.getResponse(), "value");
     studentQuestion.setActualResponse(actualResponseObj);
+    studentQuestion.setBinaryResponse(response.getBinaryResponse());
     studentQuestion.setResponseId(response.getResponseId());
     if (response.isAutomarkable()) {
       List<StudentScore> studentScoreList = getStudentScore(response);

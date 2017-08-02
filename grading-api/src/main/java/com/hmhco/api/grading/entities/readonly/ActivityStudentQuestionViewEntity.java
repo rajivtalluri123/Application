@@ -1,6 +1,7 @@
 package com.hmhco.api.grading.entities.readonly;
 
 import com.hmhco.api.grading.entities.AbstractEntity;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,6 +33,10 @@ public class ActivityStudentQuestionViewEntity extends AbstractEntity {
 
     @Column(name="actualResponse")
     private String actualResponse;
+    
+    @Lob
+    @Column(name="binaryResponse")
+    private String binaryResponse;
 
     @Column(name="rubricReference")
     private String rubricReference;

@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Lob;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -41,6 +42,10 @@ public class StudentQuestionEntity extends AuditableEntity {
     @Column(name="actual_response")
     private String actualResponse;
 
+    @Lob
+    @Column(name="binary_response")
+    private String binaryResponse;
+    
     @Column(name="response_id")
     private String responseId;
 

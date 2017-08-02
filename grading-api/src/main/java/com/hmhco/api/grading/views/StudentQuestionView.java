@@ -25,6 +25,8 @@ public class StudentQuestionView extends AbstractView{
     private  String questionReference;
 
     private Object actualResponse;
+    
+    private Object binaryResponse;
 
     private String responseId;
 
